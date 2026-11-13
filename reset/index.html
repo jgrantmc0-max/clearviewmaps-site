@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Reset Password</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><main>
+<header><div class="mark">CV</div><a href="../">Clearview Maps</a></header>
+<h1>Reset your password</h1>
+<p id="status" class="muted">Opening Clearview Maps…</p>
+<div class="card">
+<p><a id="open" href="#"><strong>Open in Clearview Maps</strong></a></p>
+<p class="muted">Open this link on the iPhone that has Clearview Maps. If the link has expired, tap Forgot Password in the app for a new one.</p>
+</div>
+<script>
+// The email's link brings a code or tokens (in the ? or # part). They stay in the browser: they're
+// only passed on to the app. Nothing is sent to this web server.
+(function () {
+  var parts = [];
+  if (location.search.length > 1) parts.push(location.search.slice(1));
+  if (location.hash.length > 1) parts.push(location.hash.slice(1));
+  if (!parts.length) {
+    document.getElementById("status").textContent = "This link is missing its reset code. Request a new reset email from the app.";
+    return;
+  }
+  var app = "fieldmark://reset?" + parts.join("&");
+  document.getElementById("open").href = app;
+  location.replace(app);
+})();
+</script>
+</main></body>
+</html>
