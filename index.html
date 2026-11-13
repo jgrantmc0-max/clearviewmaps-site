@@ -14,5 +14,18 @@
 <p><strong><a href="privacy/">Privacy Policy</a></strong>: what the app collects and why.</p>
 </div>
 <nav><a href="support/">Support</a><a href="privacy/">Privacy Policy</a></nav>
+<script>
+// A password-reset email that lands here (Supabase's Site URL) is passed on to the app. The code
+// or tokens stay in the browser; nothing is sent to this web server.
+(function () {
+  var parts = [];
+  if (location.search.length > 1) parts.push(location.search.slice(1));
+  if (location.hash.length > 1) parts.push(location.hash.slice(1));
+  var joined = parts.join("&");
+  if (/(^|&)(access_token|code|error|error_code|type)=/.test(joined)) {
+    location.replace("fieldmark://reset?" + joined);
+  }
+})();
+</script>
 </main></body>
 </html>
