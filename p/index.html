@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Clearview Maps Pin</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><main>
+<header><div class="mark">CV</div><a href="../">Clearview Maps</a></header>
+<h1 id="name">Shared pin</h1>
+<p class="muted">Opening Clearview Maps…</p>
+<div class="card">
+<p><a id="open" href="#"><strong>Open in Clearview Maps</strong></a></p>
+<p class="muted">Don't have the app? <a id="maps" href="https://maps.apple.com">Open the spot in Apple Maps</a>.</p>
+</div>
+<script>
+// The pin is in the # part of the link (lat,lon,id,name), which never reaches this web server.
+(function () {
+  var parts = location.hash.slice(1).split(",");
+  if (parts.length < 4) return;
+  var lat = parseFloat(parts[0]), lon = parseFloat(parts[1]), id = parts[2];
+  var name = decodeURIComponent(parts.slice(3).join(","));
+  if (!isFinite(lat) || !isFinite(lon)) return;
+  document.getElementById("name").textContent = name || "Shared pin";
+  var app = "fieldmark://pin?lat=" + lat + "&lon=" + lon + "&id=" + encodeURIComponent(id) + "&name=" + encodeURIComponent(name);
+  document.getElementById("open").href = app;
+  document.getElementById("maps").href = "https://maps.apple.com/?ll=" + lat + "," + lon + "&q=" + encodeURIComponent(name || "Pin");
+  location.replace(app);
+})();
+</script>
+</main></body>
+</html>
