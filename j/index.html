@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- Join link page (2026-11-17). Copy to the support site repo (clearviewmaps-site) as j/index.html,
+     next to the pin link page p/. The join code travels after # so it never reaches the web server. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Join on Clearview Maps</title>
+<style>
+  :root { color-scheme: light dark; --bg:#f4f6f4; --card:#fff; --text:#141a15; --muted:#5d665e; --accent:#2f9e4f; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0e1410; --card:#18201a; --text:#eef2ee; --muted:#9aa49b; --accent:#34c25b; } }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.45 -apple-system, system-ui, sans-serif; }
+  main { max-width:420px; margin:0 auto; padding:48px 16px; text-align:center; }
+  .card { background:var(--card); border-radius:18px; padding:28px 20px; }
+  h1 { font-size:24px; margin:0 0 8px; }
+  p { color:var(--muted); margin:8px 0 20px; }
+  a.btn { display:block; background:var(--accent); color:#fff; text-decoration:none; font-weight:600; padding:15px; border-radius:14px; }
+  .small { font-size:14px; margin-top:18px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <h1>Join your company</h1>
+    <p>Opening Clearview Maps… Sign in or create your account, and your request goes to your company's Owner or Manager to approve.</p>
+    <a class="btn" id="open" href="#">Open Clearview Maps</a>
+    <p class="small">Don't have the app yet? Install it from the link your company gave you, then tap this join link again.</p>
+  </div>
+</main>
+<script>
+  var code = (location.hash || '').replace(/^#/, '').replace(/[^A-Za-z0-9-]/g, '').slice(0, 32);
+  var target = 'fieldmark://join?code=' + encodeURIComponent(code);
+  document.getElementById('open').href = target;
+  if (code.length >= 6) { location.href = target; }
+</script>
+</body>
+</html>
